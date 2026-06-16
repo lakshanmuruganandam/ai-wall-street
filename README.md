@@ -60,9 +60,3 @@ python app.py
   <b>Built by:</b> <a href="https://huggingface.co/LADDOO22212015">LADDOO22212015</a><br>
   <i>Forging the absolute future of open-source autonomous agents.</i>
 </div>
-
-
-### 🧠 AI Engine & Model Architecture
-This system is explicitly powered by **`meta-llama/Meta-Llama-3-70B-Instruct`**.
-
-Rather than relying on closed-source APIs, we custom-engineered this agent to leverage the specific strengths of `meta-llama/Meta-Llama-3-70B-Instruct`. This allows the agent to process complex inputs with significantly lower latency and higher accuracy, ensuring enterprise-grade performance while remaining entirely open-source.
