@@ -1,20 +1,14 @@
 from fastapi import APIRouter
-from pydantic import BaseModel
-import random
+from src.models.quant import TradeSignal, ExecutionOutput
+from src.services.agent import QuantAgentSwarm
 
 api_router = APIRouter()
+swarm = QuantAgentSwarm()
 
-class TradeSignal(BaseModel):
-    ticker: str
-    amount_usd: float
-
-@api_router.post("/trade/execute")
+@api_router.post("/trade/execute", response_model=dict)
 async def execute_trade(signal: TradeSignal):
-    # Triggers the quant trading agent
-    action = random.choice(["BUY", "SELL", "HOLD"])
+    execution = await swarm.execute_trade(signal)
     return {
         "status": "success", 
-        "ticker": signal.ticker,
-        "action_taken": action,
-        "confidence": round(random.uniform(0.7, 0.99), 2)
+        "trade": execution.model_dump()
     }
