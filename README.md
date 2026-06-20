@@ -15,31 +15,65 @@
 
 ## ⚡ Executive Summary
 
-Wall Street quantitative firms spend millions building low-latency algorithmic trading infrastructure. **AI Wall Street** levels the playing field by providing an open-source, autonomous swarm of AI agents built specifically for local edge inference to analyze market sentiment and execute trading strategies.
+Wall Street quantitative firms spend tens of millions of dollars building low-latency algorithmic trading infrastructure. **AI Wall Street** levels the playing field for retail investors by providing an open-source, autonomous swarm of AI agents built specifically for local edge inference. 
 
-## 🏗️ Architecture Overview
+By executing complex sentiment analysis and technical indicator mapping locally, the system completely eradicates network latency and prevents your proprietary trading algorithms from leaking to third-party LLM APIs.
 
-By moving inference entirely to the edge, this architecture eliminates cloud API latency and keeps your proprietary trading algorithms 100% private.
+## 🏗️ Swarm Architecture
+
+The core relies on a high-concurrency **FastAPI** orchestrator, which delegates incoming market data streams to specialized "Quant" agents.
 
 ```mermaid
 graph TD;
     MarketData[Live Market Feeds] -->|Stream| API[FastAPI Orchestrator]
-    API --> SentimentAgent[Sentiment Analysis Agent]
-    API --> TechAgent[Technical Indicator Agent]
+    API -->|Validates via Pydantic| Config[Risk Config Manager]
+    Config --> Swarm[Quant Agent Swarm]
+    Swarm --> SentimentAgent[Sentiment Analysis Agent]
+    Swarm --> TechAgent[Technical Indicator Agent]
     SentimentAgent --> Arbiter[Execution Arbiter]
     TechAgent --> Arbiter
-    Arbiter -->|BUY/SELL| Exchange[Broker API]
+    Arbiter -->|Calculates Confidence| Output[BUY / SELL / HOLD Signal]
+    Output --> Exchange[Broker API Execution]
 ```
 
 ## ✨ Core Capabilities
 
 *   **Zero Latency Inference:** Eradicate API network overhead. In algorithmic trading, execution speed is everything.
-*   **Absolute Algorithm Privacy:** Your proprietary trading algorithms and alpha models never leak to third-party language models like OpenAI or Anthropic.
-*   **Production-Ready:** Engineered with Python 3.10+, complete with CI/CD pipelines and a comprehensive test suite.
+*   **Absolute Algorithm Privacy:** Your proprietary trading algorithms and alpha models never leak to external servers.
+*   **Dynamic Risk Tolerance:** Tunable via `.env` configurations, allowing the swarm to shift from conservative to highly aggressive logic models instantly.
+*   **Production-Ready Modularity:** Engineered with strict Domain-Driven Design (DDD), decoupling HTTP routing from core Quant Agent logic and Pydantic validation schemas.
+
+---
+
+## 📂 Project Structure
+
+```text
+ai-wall-street/
+├── src/
+│   ├── api/
+│   │   └── router.py       # FastAPI HTTP endpoints
+│   ├── core/
+│   │   └── config.py       # Risk tolerance & Env Loaders
+│   ├── models/
+│   │   └── quant.py        # Pydantic schemas (TradeSignal, ExecutionOutput)
+│   ├── services/
+│   │   └── agent.py        # Core autonomous Quant Swarm logic
+│   └── main.py             # ASGI Application Entrypoint
+├── tests/
+│   └── test_main.py        # Pytest suites for trade logic
+├── .github/workflows/
+│   └── ci.yml              # Automated CI/CD pipelines
+├── Makefile                # Quickstart commands
+└── requirements.txt        # Strict dependency locking
+```
 
 ---
 
 ## 🚀 Quick Start Guide
+
+### Prerequisites
+*   Python 3.10 or higher
+*   (Optional) An active `.env` file to configure risk tolerance.
 
 ### 1. Installation
 
@@ -50,7 +84,15 @@ cd ai-wall-street
 make install
 ```
 
-### 2. Boot the Swarm
+### 2. Configuration (Optional)
+
+Create a `.env` file in the root directory to tune the swarm's aggressiveness:
+```ini
+ENVIRONMENT=production
+RISK_TOLERANCE=0.75
+```
+
+### 3. Boot the Swarm
 
 Launch the trading engine:
 ```bash
@@ -58,11 +100,27 @@ make run
 ```
 The API will be available at `http://127.0.0.1:8000/docs`.
 
-### 3. Run the Test Suite
+### 4. Run the Test Suite
 
 ```bash
 make test
 ```
+
+---
+
+## 🗺️ Future Roadmap
+
+- [ ] **Phase 2:** Direct integration modules for Alpaca, Interactive Brokers, and Binance APIs.
+- [ ] **Phase 3:** WebSockets support for sub-millisecond data streaming into the swarm.
+- [ ] **Phase 4:** Reinforcement Learning module allowing the Arbiter to update its weights based on the PnL of historical trades.
+
+## 🤝 Contributing
+
+We welcome contributions from quantitative researchers and engineers! Please follow our strict CI guidelines:
+1. Fork the repository.
+2. Create your feature branch (`git checkout -b feature/NewIndicator`).
+3. Ensure all tests pass (`make test`).
+4. Open a Pull Request.
 
 ## 📝 License
 
