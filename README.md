@@ -1,66 +1,69 @@
 <div align="center">
+  <h1>📈 AI Wall Street</h1>
+  <p><b>Autonomous AI Trading Swarm & Market Sentiment Analyzer</b></p>
+
   <img src="https://img.shields.io/badge/STATUS-PRODUCTION_READY-brightgreen?style=for-the-badge&logo=github" alt="Status" />
   <img src="https://img.shields.io/badge/PYTHON-3.10+-blue?style=for-the-badge&logo=python" alt="Python" />
-  <img src="https://img.shields.io/badge/INFERENCE-LOCAL_EDGE-orange?style=for-the-badge&logo=fastapi" alt="Inference" />
+  <img src="https://img.shields.io/badge/FRAMEWORK-FASTAPI-009688?style=for-the-badge&logo=fastapi" alt="FastAPI" />
+  <img src="https://img.shields.io/github/actions/workflow/status/lakshanmuruganandam/ai-wall-street/ci.yml?style=for-the-badge&logo=githubactions" alt="Build Status" />
   <img src="https://img.shields.io/badge/LICENSE-MIT-red?style=for-the-badge&logo=opensourceinitiative" alt="License" />
 </div>
 
 <br>
 
-<div align="center">
-  <h1>🌌 Ai Wall Street</h1>
-  <p><b>Next-Generation Autonomous Agentic System & Local Inference Engine</b></p>
-</div>
-
-<div align="center">
-  <i>Tags: <code>#AI</code> <code>#MachineLearning</code> <code>#LocalInference</code> <code>#AutonomousAgents</code> <code>#LLM</code> <code>#Python</code> <code>#Serverless</code></i>
-</div>
-
 ---
 
-## ⚡ Executive Overview
+## ⚡ Executive Summary
 
-**Ai Wall Street** represents a paradigm shift in production-grade artificial intelligence. Engineered from the ground up to revolutionize autonomous reasoning, this architecture leverages state-of-the-art constraint matrices to achieve sub-second latency while seamlessly executing hyper-complex, multi-step logic workflows.
+Wall Street quantitative firms spend millions building low-latency algorithmic trading infrastructure. **AI Wall Street** levels the playing field by providing an open-source, autonomous swarm of AI agents built specifically for local edge inference to analyze market sentiment and execute trading strategies.
 
-Unlike massive, bloated monolithic cloud models, this engine is meticulously optimized to run on local edge hardware or lightweight serverless infrastructure without sacrificing reasoning capability.
+## 🏗️ Architecture Overview
 
-## 🚀 Architectural Capabilities
+By moving inference entirely to the edge, this architecture eliminates cloud API latency and keeps your proprietary trading algorithms 100% private.
 
-- 🧠 **Autonomous Execution:** Self-correcting neural reasoning chains that operate entirely independently of human intervention.
-- ⚡ **Local Edge Inference:** Deploys highly optimized, quantization-ready local models requiring minimal VRAM overhead.
-- 🧱 **Modular Micro-Agents:** Isolated component architecture allowing for infinitely scalable, asynchronous logic trees.
-- 🛡️ **Secure Execution:** Hardened operational environment with strict data containment, sanitization, and input validation.
-
-## 🛠️ Tech Stack & Engineering
-
-- **Core Engine:** High-concurrency Python backend utilizing asynchronous event loops.
-- **Memory Management:** Highly optimized context-window indexing for rapid RAG (Retrieval-Augmented Generation).
-- **Interface:** Modern, reactive, stateless frontend paradigm ensuring zero-latency user interaction.
-
-## 💻 Deployment Protocol
-
-Getting the engine up and running takes less than 60 seconds.
-
-```bash
-# 1. Clone the repository
-git clone https://github.com/lakshanmuruganandam/ai-wall-street.git
-cd ai-wall-street
-
-# 2. Install core dependencies
-pip install -r requirements.txt
-
-# 3. Ignite the Engine
-python app.py
+```mermaid
+graph TD;
+    MarketData[Live Market Feeds] -->|Stream| API[FastAPI Orchestrator]
+    API --> SentimentAgent[Sentiment Analysis Agent]
+    API --> TechAgent[Technical Indicator Agent]
+    SentimentAgent --> Arbiter[Execution Arbiter]
+    TechAgent --> Arbiter
+    Arbiter -->|BUY/SELL| Exchange[Broker API]
 ```
 
-<br>
+## ✨ Core Capabilities
+
+*   **Zero Latency Inference:** Eradicate API network overhead. In algorithmic trading, execution speed is everything.
+*   **Absolute Algorithm Privacy:** Your proprietary trading algorithms and alpha models never leak to third-party language models like OpenAI or Anthropic.
+*   **Production-Ready:** Engineered with Python 3.10+, complete with CI/CD pipelines and a comprehensive test suite.
 
 ---
-<div align="center">
-  <b>Built by:</b> <a href="https://huggingface.co/LADDOO22212015">LADDOO22212015</a><br>
-  <i>Forging the absolute future of open-source autonomous agents.</i>
-</div>
 
+## 🚀 Quick Start Guide
 
-### 🧠 Preferred Model
-> `Qwen/Qwen2-72B-Instruct` — Advanced quantitative analysis and financial reasoning.
+### 1. Installation
+
+Clone the repository and install dependencies instantly using the built-in Makefile:
+```bash
+git clone https://github.com/lakshanmuruganandam/ai-wall-street.git
+cd ai-wall-street
+make install
+```
+
+### 2. Boot the Swarm
+
+Launch the trading engine:
+```bash
+make run
+```
+The API will be available at `http://127.0.0.1:8000/docs`.
+
+### 3. Run the Test Suite
+
+```bash
+make test
+```
+
+## 📝 License
+
+Distributed under the MIT License. See `LICENSE` for more information.
